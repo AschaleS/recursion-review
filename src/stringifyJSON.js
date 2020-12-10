@@ -11,6 +11,16 @@ var stringifyJSON = function(obj) {
     }
     return '[' + result + ']';
   }
+  if (obj && typeof(obj) === 'object') {
+    var result = [];
+    for (var key in obj) {
+      if (typeof(obj[key]) === 'function' || obj[key] === undefined) {
+        continue;
+      }
+      result.push(stringifyJSON(key) + ':' + stringifyJSON(obj[key]));
+    }
+    return '{' + result + '}';
+  }
   if (typeof(obj) === 'string') {
     return '"' + obj + '"';
   }
